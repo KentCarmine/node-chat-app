@@ -15,4 +15,25 @@ socket.on('disconnect', function() {
 
 socket.on('newMessage', function(newMessage) {
   console.log('newMessage', newMessage);
+  let li = $('<li></li>');
+  li.text(`${newMessage.from}: ${newMessage.text}`)
+  $("#messages").append(li);
+});
+
+// socket.emit('createMessage', {
+//   from: 'Client',
+//   text: 'Hi'
+// }, function(data) {
+//   console.log("Got it.", data);
+// });
+
+$("#message-form").on('submit', function(e) {
+  e.preventDefault();
+
+  socket.emit('createMessage', {
+    from: "User",
+    text: $("[name=message]").val()
+  }, function() {
+
+  });
 });
